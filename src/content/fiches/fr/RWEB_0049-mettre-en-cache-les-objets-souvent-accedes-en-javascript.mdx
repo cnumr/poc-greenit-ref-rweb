@@ -41,13 +41,14 @@ L’accès au DOM (Document Object Model) est coûteux en termes de ressources p
 Ne pas écrire :
 
 ```javascript
-document.getElementById('menu').property1 = 'foo'; document.getElementById('menu').property2 = 'bar';
+document.getElementById('menu').property1 = 'foo';
+document.getElementById('menu').property2 = 'bar';
 ```
 
 mais plutôt :
 
 ```javascript
-var mmenu = document.getElementById('menu');
+var menu = document.getElementById('menu');
 menu.property1 = 'foo';
 menu.property2 = 'bar'
 ```
