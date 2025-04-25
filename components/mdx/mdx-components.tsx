@@ -30,7 +30,7 @@ export const MdxComponents = {
       <>
         <picture>
           <source srcSet={image} />
-          <img {...rest} />
+          <img alt={props.alt||'Image'} {...rest} />
         </picture>
         {props.caption && (
           <figcaption className="text-center text-sm text-gray-500">
