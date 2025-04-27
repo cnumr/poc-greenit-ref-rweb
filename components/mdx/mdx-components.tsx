@@ -22,15 +22,18 @@ export const MdxComponents = {
     // console.log('props', props);
     const url = `${props.url.replace('/public', '')}`;
     // console.log('url', url);
-    const common = { alt: props.alt || 'Image', width: 800, height: 400 }
+    const common = { alt: props.alt || 'Image', width: 800, height: 400 };
     const {
       props: { srcSet: image, ...rest },
-    } = getImageProps({ ...common, src: url })
+    } = getImageProps({ ...common, src: url });
     return (
       <>
         <picture>
           <source srcSet={image} />
-          <img {...rest} />
+          <img
+            alt={props.alt || 'Image'}
+            {...rest}
+          />
         </picture>
         {props.caption && (
           <figcaption className="text-center text-sm text-gray-500">
@@ -38,6 +41,6 @@ export const MdxComponents = {
           </figcaption>
         )}
       </>
-  );
+    );
   },
 };
