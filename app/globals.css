@@ -74,6 +74,15 @@
   a {
     @apply font-bold underline;
   }
+  pre {
+    @apply overflow-x-auto whitespace-pre-wrap break-all shadow-md;
+  }
+  pre code {
+    @apply block rounded border-2 border-primary p-4;
+  }
+  code {
+    @apply bg-white bg-opacity-80;
+  }
 }
 
 /* components styles */
@@ -118,7 +127,7 @@
   .wp-list-col {
     @apply noliststyle flex flex-row flex-wrap gap-2;
     & > li {
-      @apply w-full lg:w-[calc(50%_-_0.5rem)] overflow-hidden;
+      @apply w-full overflow-hidden lg:w-[calc(50%_-_0.5rem)];
     }
   }
 
