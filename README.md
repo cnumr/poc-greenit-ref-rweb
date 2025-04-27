@@ -175,11 +175,18 @@ export default (req, res) => {
 
 # Using MongoDB for the datalayer
 
+> **MongoDB + Vercel for authorize the connection to the database.**
+>
+> - https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/
+> - https://vercel.com/integrations/mongodbatlas
+
 It's possible to use MongoDB with the data layer for your TinaCMS application instead of Vercel KV. To do this, you will need to add the following environment variables to your project:
 
 ```env
 `MONGODB_URI` is the connection string to your MongoDB database. You can use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) to get a free database.
 ```
+
+> More information about the MongoDB Atlas https://www.mongodb.com/resources/products/fundamentals/create-database
 
 Next you will need to update the `tina/database.ts` to use the MongoDB level implementation instead of the Redis level implementation.
 
