@@ -1,46 +1,32 @@
-import { Lexique, LexiqueConnectionQuery } from "../../../tina/__generated__/types";
-
-import Link from "next/link";
-import { MdxComponents } from "../../../components/mdx/mdx-components";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import lexiqueData from "./lexique.preval";
-import { ui } from "../../../i18n/ui";
 import { useTranslations } from "../../../i18n/utils";
+import { Lexique, LexiqueConnectionQuery } from "../../../tina/__generated__/types";
+import lexiqueData from "./lexique.preval";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { MdxComponents } from "../../../components/mdx/mdx-components";
+import Link from "next/link";
+import { ui } from "../../../i18n/ui";
 
 export async function generateStaticParams() {
   const lang = Object.keys(ui);
   return lang.map((lang) => ({ lang }));
 }
 
-function getLexiqueData(lang: string) {
+export default async function Home({ params }) {
+  const { lang } = params;
   const { data }: { data: LexiqueConnectionQuery } = lexiqueData;
+  const t = useTranslations(lang);
   const entries = data.lexiqueConnection.edges?.filter(
     (e) => e?.node?.language === lang && e?.node?.published
   );
-  return entries;
-}
-
-export default async function Home({ params }) {
-  const { lang } = params;
-  const entries = getLexiqueData(lang);
-  
-  return <LexiqueContent entries={entries} lang={lang} />;
-}
-
-function LexiqueContent({ entries, lang }) {
-  const t = useTranslations(lang);
-
   if (!entries) {
     return null;
   }
-
   const byGroup: { node: Lexique }[][] = entries.reduce((r, a) => {
     if (a?.node) {
       r[a.node.title.slice(0, 1)] = [...(r[a.node.title.slice(0, 1)] || []), a];
     }
     return r;
   }, []);
-
   return (
     <main className="mx-auto my-8 min-h-[400px] px-4 lg:max-w-5xl lg:px-0">
       <h1 data-pagefind-filter="type">{t("Lexique")}</h1>

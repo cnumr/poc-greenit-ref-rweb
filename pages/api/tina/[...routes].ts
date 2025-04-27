@@ -1,5 +1,6 @@
-import { AuthJsBackendAuthProvider, TinaAuthJSOptions } from 'tinacms-authjs';
-import { LocalBackendAuthProvider, TinaNodeBackend } from '@tinacms/datalayer';
+import { TinaNodeBackend, LocalBackendAuthProvider } from '@tinacms/datalayer';
+
+import { TinaAuthJSOptions, AuthJsBackendAuthProvider } from 'tinacms-authjs';
 
 import databaseClient from '../../../tina/__generated__/databaseClient';
 
@@ -17,9 +18,7 @@ const handler = TinaNodeBackend({
   databaseClient,
 });
 
-const apiHandler = (req, res) => {
+export default (req, res) => {
   // Modify the request here if you need to
   return handler(req, res);
 };
-
-export default apiHandler;

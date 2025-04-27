@@ -1,32 +1,21 @@
-import Link from 'next/link';
+import { useTranslations } from '../../../i18n/utils';
 import { PersonasConnectionQuery } from '../../../tina/__generated__/types';
 import personasData from './personas.preval';
+import Link from 'next/link';
 import { ui } from '../../../i18n/ui';
-import { useTranslations } from '../../../i18n/utils';
 
 export async function generateStaticParams() {
   const lang = Object.keys(ui);
   return lang.map((lang) => ({ lang }));
 }
 
-function getPersonasData(lang: string) {
+export default async function Home({ params }) {
+  const { lang } = params;
   const { data }: { data: PersonasConnectionQuery } = personasData;
+  const t = useTranslations(lang);
   const entries = data.personasConnection.edges?.filter(
     (e) => e?.node?.language === lang
   );
-  return entries;
-}
-
-export default async function Home({ params }) {
-  const { lang } = params;
-  const entries = getPersonasData(lang);
-  
-  return <PersonasContent entries={entries} lang={lang} />;
-}
-
-function PersonasContent({ entries, lang }) {
-  const t = useTranslations(lang);
-
   return (
     <main className="mx-auto my-8 min-h-[400px] px-4 lg:max-w-5xl lg:px-0">
       <div className="group flex flex-col gap-4">

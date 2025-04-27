@@ -5,16 +5,17 @@ import CardView from '../../../components/card-view';
 import { FichesCardFilter } from '../../../components/pages/fiche/FicheFilter';
 import { FichesTableView } from '../../../components/pages/fiche/TableView';
 import { Fragment } from 'react';
-import { client } from '../../../tina/__generated__/databaseClient';
-import { ui } from '../../../i18n/ui';
 import { useTranslations } from '../../../i18n/utils';
+import { ui } from '../../../i18n/ui';
+import { client } from '../../../tina/__generated__/databaseClient';
 
 export async function generateStaticParams() {
   const lang = Object.keys(ui);
   return lang.map((lang) => ({ lang }));
 }
 
-async function getFichesData(lang: string) {
+export default async function Home({ params }) {
+  const { lang } = params;
   const { data }: { data: FichesConnectionQuery } = await client.queries.fichesConnection({
     first: 1000,
     filter: {
@@ -26,23 +27,12 @@ async function getFichesData(lang: string) {
       },
     },
   });
-  return data.fichesConnection.edges;
-}
-
-export default async function Home({ params }) {
-  const { lang } = params;
-  const entries = await getFichesData(lang);
-  
-  return <FichesContent entries={entries} lang={lang} />;
-}
-
-function FichesContent({ entries, lang }) {
   const t = useTranslations(lang);
+  const entries = data.fichesConnection.edges;
 
   if (!entries) {
     return null;
   }
-  
   return (
     <main className="mx-auto my-8 min-h-[400px] px-4 lg:max-w-5xl lg:px-0">
       <div className="group flex flex-col gap-4">
