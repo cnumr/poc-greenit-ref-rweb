@@ -1,11 +1,11 @@
+import { FunctionComponent } from 'react';
+import Image from 'next/image';
+import { LanguagePicker } from './language-picker';
+import Licence from './licence';
+import Link from 'next/link';
 import { getRefConfig } from '../referentiel-config';
 import { ui } from '../i18n/ui';
-import { FunctionComponent } from 'react';
 import { useTranslations } from '../i18n/utils';
-import Link from 'next/link';
-import { LanguagePicker } from './language-picker';
-import Image from 'next/image';
-import Licence from './licence';
 interface FooterProps {
   lang?: keyof typeof ui;
 }
@@ -18,7 +18,7 @@ const Footer: FunctionComponent<FooterProps> = ({ lang = 'fr' }) => {
         <ul className="flex flex-col items-center gap-4 lg:flex-row">
           <li>
             <span>
-              © {getRefConfig().refInformations.creationYear} -
+              © {getRefConfig().refInformations.creationYear}-
               <span id="copyright">{new Date().getFullYear().toString()}</span>
             </span>
             <span>&middot;</span>
@@ -30,6 +30,13 @@ const Footer: FunctionComponent<FooterProps> = ({ lang = 'fr' }) => {
               href={`${lang}/mentions-legales`}
               title={t('Les mentions légales du site.')}>
               {t('Mentions légales')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/index.html"
+              title={t('Contribuez !')}>
+              Admin
             </Link>
           </li>
           <li>
