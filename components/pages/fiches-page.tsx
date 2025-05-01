@@ -27,10 +27,7 @@ export function FichesPage(props: {
   const { data } = useTina(props);
   const t = useTranslations(props.params.lang);
   const anchors = data?.fiches.body.children
-    .filter(
-      (child: any) =>
-        child.type && ['h1', 'h2'].includes(child.type)
-    )
+    .filter((child: any) => child.type && ['h1', 'h2'].includes(child.type))
     .map((child: any) => ({
       slug: '#' + slugify(child.children[0].text),
       depth: (child.type && parseInt(child.type.replace('h', ''), 0)) ?? 0,
@@ -50,16 +47,21 @@ export function FichesPage(props: {
           {t('Bonnes pratiques')}
         </span>
         <FichePermalink />
-        <h1
-          className="flex flex-col items-start gap-2 lg:col-span-2 lg:flex-row lg:items-center lg:gap-0">
-          <span className="badge mr-2 whitespace-nowrap border-primary bg-primary"
+        <h1 className="flex flex-col items-start gap-2 lg:col-span-2 lg:flex-row lg:items-center lg:gap-0">
+          <span
+            className="badge mr-2 whitespace-nowrap border-primary bg-primary"
             data-tina-field={tinaField(data.fiches, 'refID')}>
             {REF_NAME} {data.fiches['refID']}
           </span>
-          <span data-tina-field={tinaField(data.fiches, 'title')}>{data.fiches.title}</span>
+          <span data-tina-field={tinaField(data.fiches, 'title')}>
+            {data.fiches.title}
+          </span>
         </h1>
-        {/* @ts-ignore */}
-        <FicheVersionDisplay versions={data.fiches['versions']} data={data} />
+        <FicheVersionDisplay
+          // @ts-ignore
+          versions={data.fiches['versions']}
+          data={data}
+        />
         <FicheMetaDisplay
           fiches={data}
           lang={props.params.lang}
@@ -72,6 +74,7 @@ export function FichesPage(props: {
           {data.fiches.body && (
             <TinaMarkdown
               content={data.fiches.body}
+              // @ts-ignore
               components={MdxComponents}
             />
           )}
