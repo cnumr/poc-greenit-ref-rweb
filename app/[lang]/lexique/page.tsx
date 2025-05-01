@@ -1,10 +1,14 @@
-import { useTranslations } from "../../../i18n/utils";
-import { Lexique, LexiqueConnectionQuery } from "../../../tina/__generated__/types";
-import lexiqueData from "./lexique.preval";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { MdxComponents } from "../../../components/mdx/mdx-components";
-import Link from "next/link";
-import { ui } from "../../../i18n/ui";
+import {
+  Lexique,
+  LexiqueConnectionQuery,
+} from '../../../tina/__generated__/types';
+
+import Link from 'next/link';
+import { MdxComponents } from '../../../components/mdx/mdx-components';
+import { TinaMarkdown } from 'tinacms/dist/rich-text';
+import lexiqueData from './lexique.preval';
+import { ui } from '../../../i18n/ui';
+import { useTranslations } from '../../../i18n/utils';
 
 export async function generateStaticParams() {
   const lang = Object.keys(ui);
@@ -29,7 +33,7 @@ export default async function Home({ params }) {
   }, []);
   return (
     <main className="mx-auto my-8 min-h-[400px] px-4 lg:max-w-5xl lg:px-0">
-      <h1 data-pagefind-filter="type">{t("Lexique")}</h1>
+      <h1 data-pagefind-filter="type">{t('Lexique')}</h1>
       <ul
         className="mb-2 flex flex-wrap items-start gap-2"
         data-pagefind-body>
@@ -64,6 +68,7 @@ export default async function Home({ params }) {
                         </h2>
                         <TinaMarkdown
                           content={entry?.node.body}
+                          // @ts-ignore
                           components={MdxComponents}
                         />
                       </li>
