@@ -74,14 +74,8 @@
   a {
     @apply font-bold underline;
   }
-  pre {
-    @apply overflow-x-auto whitespace-pre-wrap break-all shadow-md;
-  }
-  pre code {
-    @apply block rounded border-2 border-primary p-4;
-  }
-  code {
-    @apply bg-white bg-opacity-80;
+  pre:has(code) {
+    @apply block rounded border-2 border-primary shadow-md;
   }
 }
 
