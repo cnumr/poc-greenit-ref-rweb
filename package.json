@@ -8,7 +8,10 @@
     "build": "TINA_PUBLIC_IS_LOCAL=false TINA_PUBLIC_REF_NAME=RWEB NEXT_PUBLIC_REF_NAME=RWEB tinacms build --partial-reindex && next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "docker:up": "docker compose -f .local_mogodb/docker-compose.yml up -d",
+    "docker:down": "docker compose -f .local_mogodb/docker-compose.yml down",
+    "clean": "rm -rf .next && rm -rf tina/__generated__"
   },
   "devDependencies": {
     "@iconify/react": "5.1.0",
